@@ -1,0 +1,108 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h3>Cadastro de ações</h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="input-titulo" class="col-sm-2 control-label">Titulo</label>
+            <div class="col-sm-3">
+                <input id="input-titulo" type="text" name="titulo" class="form-control"/>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="select-situacoa" class="col-sm-2 control-label">Situação</label>
+            <div class="col-sm-3">
+                <select id="select-situacao" name="situacao" class="form-control">
+                    <option ng-repeat="s in situacoes"  value="{{s.id}}">{{s.descricao}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="select-tipo-acao" class="col-sm-2 control-label">Tipo Ação</label>
+            <div class="col-sm-3">
+                <select id="select-tipo-acao" name="tipo-acao" class="form-control">
+                    <option ng-repeat="t in tiposAcao"  value="{{t.id}}">{{t.descricao}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="select-curso" class="col-sm-2 control-label">Curso</label>
+            <div class="col-sm-3">
+                <select id="select-curso" name="curso" class="form-control">
+                    <option ng-repeat="c in cursos" value="{{c.id}}1">{{c.nome}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Enviar" class="btn btn-default"/>
+                <input type="reset" value="Limpar" class="btn"/>
+            </div>
+        </div>    
+    </form>
+    <h3>Exemplos de requisições</h3>
+    <ul class="list-group">
+        <li class="list-group-item"><a href="api/TipoConceito/buscarTodos.php">Buscar todos os tipos de conceitos</a></li>
+        <li class="list-group-item"><a href="api/ConceitoExtensao/buscarAtivos.php?idTipoConceito=3">Buscar conceitos extensão ativos</a></li>
+        <li class="list-group-item"><a href="api/TipoAcao/buscarTodos.php">Buscar todos os tipos de acao</a></li>
+        <li class="list-group-item"><a href="api/Situacao/buscarTodas.php">Buscar todas as situações</a></li>
+        <li class="list-group-item"><a href="api/Curso/buscarAtivos.php">Buscar todos os cursos ativos</a></li>
+        <li class="list-group-item"><a href="api/Curso/buscarPorNome.php?nome=in">Buscar curso por nome</a></li>
+    </ul>
+</body>
+</html>
+
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http){
+       
+       $http.get('api/Situacao/buscarTodas.php').then(function(response) {
+            if(response.data.sucesso) {
+                $scope.situacoes = response.data.conteudo;
+            } else {
+                alert(response.data.mensagem)
+            }
+       }, function(response) {
+           alert("Erro: " + response.statusText);
+       });
+       
+       
+       $http.get('api/TipoAcao/buscarTodos.php').then(function(response) {
+            if(response.data.sucesso) {
+                $scope.tiposAcao = response.data.conteudo;
+            } else {
+                alert(response.data.mensagem)
+            }
+       }, function(response) {
+           alert("Erro: " + response.statusText);
+       });
+       
+       $http.get('api/Curso/buscarAtivos.php').then(function(response) {
+            if(response.data.sucesso) {
+                $scope.cursos = response.data.conteudo;
+            } else {
+                alert(response.data.mensagem)
+            }
+       }, function(response) {
+           alert("Erro: " + response.statusText);
+       });
+    });
+</script>

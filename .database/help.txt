@@ -1,0 +1,21 @@
+-- Importar o arquivo de banco de dados 
+mysql -u root < .database/script_v2017_04_07.sql
+
+
+-- Linha de comando mysql
+mysql-ctl cli
+
+    -- exibir os schemas
+    show databases
+    
+    -- exibir acessar um schema
+    set extensao
+    
+    -- exibir as tabelas
+    show tables
+    
+    -- consulta
+    select * from curso
+    
+
+
