@@ -1,5 +1,5 @@
 -- Importar o arquivo de banco de dados 
-mysql -u root < .database/script_v2017_04_07.sql
+mysql -u root < .database/script_v2017_05_02.sql
 
 
 -- Linha de comando mysql
