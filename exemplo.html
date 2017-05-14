@@ -7,48 +7,78 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
     <h3>Cadastro de ações</h3>
-    <form class="form-horizontal">
+    <form name="acaoForm" ng-submit="salvar()" class="form-horizontal">
+        
         <div class="form-group">
             <label for="input-titulo" class="col-sm-2 control-label">Titulo</label>
             <div class="col-sm-3">
-                <input id="input-titulo" type="text" name="titulo" class="form-control"/>
+                <input id="input-titulo" type="text" class="form-control" ng-model="acao.titulo" required/>
             </div>
         </div>
         
         <div class="form-group">
-            <label for="select-situacoa" class="col-sm-2 control-label">Situação</label>
+            <label for="select-curso" class="col-sm-2 control-label">Curso responsável</label>
             <div class="col-sm-3">
-                <select id="select-situacao" name="situacao" class="form-control">
-                    <option ng-repeat="s in situacoes"  value="{{s.id}}">{{s.descricao}}</option>
-                </select>
+                <select id="select-curso" class="form-control" ng-model="acao.cursoResponsavel" ng-options="c.id as c.nome for c in cursos"></select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="input-situacao" class="col-sm-2 control-label">Situação</label>
+            <div class="col-sm-3">
+                <input id="input-situacao" type="text" class="form-control" disabled value="{{situacoes[0].descricao}}"/>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="input-descricao" class="col-sm-2 control-label">Descrição</label>
+            <div class="col-sm-3">
+                <input id="input-descricao" type="text" class="form-control" ng-model="acao.descricao" required/>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="input-objetivo" class="col-sm-2 control-label">Objetivo</label>
+            <div class="col-sm-3">
+                <textarea id="input-objetivo" type="text" class="form-control" ng-model="acao.objetivo" rows="3" required>
+                </textarea>
+            </div>
+        </div>
+        
+         <div class="form-group">
+            <label for="input-publico-alvo" class="col-sm-2 control-label">Público alvo</label>
+            <div class="col-sm-3">
+                <input id="input-publico-alvo" type="text" class="form-control" ng-model="acao.publicoAlvo" required/>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="input-local" class="col-sm-2 control-label">Local</label>
+            <div class="col-sm-3">
+                <input id="input-local" type="text" class="form-control" ng-model="acao.local" required/>
+            </div>
+        </div>
+        
+         <div class="form-group">
+            <label for="input-data-inicio" class="col-sm-2 control-label">Data inicio</label>
+            <div class="col-sm-3">
+                <input id="input-data-inicio" type="datetime-local" class="form-control" ng-model="acao.dataInicio" required/>
             </div>
         </div>
         
         <div class="form-group">
             <label for="select-tipo-acao" class="col-sm-2 control-label">Tipo Ação</label>
             <div class="col-sm-3">
-                <select id="select-tipo-acao" name="tipo-acao" class="form-control">
+                <select id="select-tipo-acao" name="tipo-acao" class="form-control" ng-model="acao.tipoAcao">
                     <option ng-repeat="t in tiposAcao"  value="{{t.id}}">{{t.descricao}}</option>
                 </select>
             </div>
         </div>
         
-        <div class="form-group">
-            <label for="select-curso" class="col-sm-2 control-label">Curso</label>
-            <div class="col-sm-3">
-                <select id="select-curso" name="curso" class="form-control">
-                    <option ng-repeat="c in cursos" value="{{c.id}}1">{{c.nome}}</option>
-                </select>
-            </div>
-        </div>
+       
         
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -66,19 +96,34 @@
         <li class="list-group-item"><a href="api/Curso/buscarAtivos.php">Buscar todos os cursos ativos</a></li>
         <li class="list-group-item"><a href="api/Curso/buscarPorNome.php?nome=in">Buscar curso por nome</a></li>
     </ul>
-</body>
-</html>
 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
 <script>
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope, $http){
        
-       $http.get('api/Situacao/buscarTodas.php').then(function(response) {
+       $scope.acao = {};
+       $scope.acao.tipoAcao = 1;
+       
+       $scope.salvar = function() {
+           $http({
+               method: 'POST',
+               url: 'api/Acao/salvar.php',
+               data: $scope.acao
+           }).success(function(data){
+             alert(data.mensagem);
+           });
+       }
+       
+       $http.get('api/Situacao/buscarPorId.php?id=1').then(function(response) {
             if(response.data.sucesso) {
                 $scope.situacoes = response.data.conteudo;
             } else {
-                alert(response.data.mensagem)
+                alert(response.data.mensagem);
             }
        }, function(response) {
            alert("Erro: " + response.statusText);
@@ -106,3 +151,5 @@
        });
     });
 </script>
+</body>
+</html>
