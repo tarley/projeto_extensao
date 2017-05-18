@@ -46,15 +46,52 @@
         $acao->dt_inicio = $_POST['dataInicio'];
         $acao->dt_termino = $_POST['dataTermino'];
         $acao->dt_registro = new DateTime('NOW'); // Data de registro é agora
-        $acao->tipo_acao = R::findone('tipo_acao', 'id = :id', [':id' => $_POST['tipoAcao']]);
-        $acao->situacao = R::findone('situacao', 'id = :id', [':id' => 1]); // Situação pendênte 
-        $acao->curso = R::findone('curso', 'id = :id', [':id' => $_POST['cursoResponsavel']]);
-        $acao->professor = R::findone('usuario', 'id = :id', [':id' => 3]); // Cadastrado pelo professor Tarley
+        $acao->tipo_acao = R::findone('tipo_acao', 'id = ?', [$_POST['tipoAcao']]);
+        $acao->situacao = R::findone('situacao', 'id = ?', [1]); // Situação pendênte 
+        $acao->curso = R::findone('curso', 'id = ?', [$_POST['cursoResponsavel']]);
+        $acao->professor = R::findone('usuario', 'id = ?', [3]); // Cadastrado pelo professor Tarley
         
+        foreach(explode(",", $_POST['atividades']) as $value) {
+            $atividade =  R::dispense('atividade');
+            $atividade->nome = $value;
+            $acao->ownAtividadeList[] = $atividade;
+        }
+        
+        
+        foreach(explode(",", $_POST['palavrasChave']) as $value) {
+            $palavra =  R::dispense('palavrachave');
+            $palavra->palavra = $value;
+            $acao->ownPalavrachaveList[] = $palavra;
+        }
+        
+        
+        R::begin();
         $id = R::store($acao);
-
+        
+        foreach($_POST['areaTematicaIntegradora'] as $key => $value) {
+            $conceito =  R::findone('conceito', 'id = ?', [$key]);
+            $conceito->link('conceito_acao')->acao = $acao;
+            R::store($conceito);
+        }
+        
+        foreach($_POST['objetivosONU'] as $key => $value) {
+            $conceito =  R::findone('conceito', 'id = ?', [$key]);
+            $conceito->link('conceito_acao')->acao = $acao;
+            R::store($conceito);
+        }
+        
+        foreach($_POST['desafiosBH2030'] as $key => $value) {
+            $conceito =  R::findone('conceito', 'id = ?', [$key]);
+            $conceito->link('conceito_acao')->acao = $acao;
+            R::store($conceito);
+        }
+        
+       
+        
+        R::commit();
         respostaJsonSucesso('Ação cadastrada com sucesso!');
     } catch(Exception $e) {
+        R::rollback();
         respostaJsonErro($e->getMessage());
     }
 ?>
