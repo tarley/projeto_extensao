@@ -10,7 +10,7 @@
         
         $tipoConceito = R::find('tipo_conceito', 'id= ?', [$idTipoConceito]);
         
-        $dados = R::find('conceito_extensao', 
+        $dados = R::find('conceito', 
             'ativo = ? AND tipo_conceito_id = ?', [1, $_GET['idTipoConceito']]);
         
         foreach($dados as $areaTematica) {
