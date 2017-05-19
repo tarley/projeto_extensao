@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="cadastraProjeto">
+  <head>
+    <meta charset="UTF-8">
+    <title>Siex Newton - Cadastrar Ação</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+    <!-- Morris chart -->
+    <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <!-- jvectormap -->
+    <link href="plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- Date Picker -->
+    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker -->
+    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="../../plugins/angular/main.js"></script>
+    <script src="../../plugins/angular/controllers/tipo-acao-controller.js"></script>
+    <script src="../../plugins/angular/controllers/cursos-controller.js"></script>
+    <script src="../../plugins/angular/controllers/area-tematica-controller.js"></script>
+    <script src="../../plugins/angular/controllers/area-onu-controller.js"></script>
+    <script src="../../plugins/angular/controllers/area-bh-controller.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="skin-green">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="index22.html" class="logo"><b>Siex</b> Newton</a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning">10</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">Você tem 10 notificações</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-users text-aqua"></i> 5 professores
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-warning text-yellow"></i> Texto Texto Texto
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-users text-red"></i> Texto Texto Texto
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-shopping-cart text-green"></i> Texto Texto Texto
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user text-red"></i> Texto Texto Texto
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">Ver tudo</a></li>
+                </ul>
+              </li>
+              
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                  <span class="hidden-xs">Thiago Alves</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                    <p>
+                      Thiago Alves
+                      <small>Administrador do Sistema</small>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                  <li class="user-body">
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Menu 1</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Menu 2</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Menu 3</a>
+                    </div>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-default btn-flat">Sair</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Thiago Alves</p>
+
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+          <!-- search form -->
+          <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Pesquisar..."/>
+              <span class="input-group-btn">
+                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+          <!-- /.search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">Menu de navegação</li>
+            <li >
+              <a href="index22.html">
+                <i class="fa fa-home"></i> <span>Página Inicial</span>
+              </a>
+            </li>
+            <!--
+            <li>
+              <a href="404.html">
+                <i class="fa fa-flag"></i> <span>Ajuda</span>
+              </a>
+            </li>
+            -->
+            <li class="active treeview">
+              <a href="cadastrar.html">
+                <i class="fa fa-edit"></i> <span>Cadastrar Ação</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Right side column. Contains the navbar and content of the page -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Cadastrar ou Atualizar Ações
+            <small>Cadastrar</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="index22.html"><i class="fa fa-home"></i> Home</a></li>
+            <li class="active">Cadastrar Ação</li>
+          </ol>
+        </section>
+  
+  
+  
+    <!-- CONTEUDO 
+      ############
+       ############ 
+       #############
+       #############
+       
+       
+       
+       
+       --!>
+  
+  
+  
+  
+  
+        <!-- Main content -->
+        <section class="content">
+            <div class="box box-solid">
+              <form>
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">Descrição</a></li>
+                  <li><a href="#tab_2" data-toggle="tab" class="btn disabled">Equipe</a></li>
+                  <li><a href="#tab_3" data-toggle="tab" class="btn disabled">Parceria</a></li>
+                  <li><a href="#tab_4" data-toggle="tab" class="btn disabled">Resultados</a></li>
+                  <li><a href="#tab_5" data-toggle="tab" class="btn disabled">Histórico</a></li>
+                </ul>
+                
+                
+                
+                <div class="tab-content">
+                  <div class="tab-pane active box-body" id="tab_1">
+                      <h3>Tipo de Evento</h3>
+                      
+                      <!-- TIPOS DE AÇÃO -->
+                      <div class="form-group" ng-controller="TipoAcao">
+                        <div class="radio" ng-repeat="tipoAcao in tiposAcao">
+                          <label>
+                            <input type="radio" name="optionsRadios" id="{{tipoAcao.id}}" value="{{tipoAcao.id}}" >
+                            {{tipoAcao.descricao}}
+                          </label>
+                        </div>
+                      </div>
+                    <!-- FIM TIPOS DE AÇÃO --> 
+
+                    
+                    <div class="form-group">
+                      <label for="titulodaAcao"><h3>Título da Ação</h3></label>
+                      <input type="text" class="form-control" id="titulodaAcao" placeholder="Título da Ação">
+                    </div>
+
+                    <!-- LISTA DOS CURSOS -->
+                    <div class="form-group" ng-controller="ListaCursos">
+                      <label for="cursoResponsavel"><h3>Curso Responsável</h3></label>
+                      <select class="form-control" id="cursoResponsavel">
+                        <option ng-repeat="c in cursos" value="{{c.id}}">{{c.nome}}</option>
+                      </select>
+                    </div>
+                    
+                    <!-- AREA INTEGRADORA -->
+                    <div class="form-group" ng-controller="AreaTematica">
+                      <label for="titulodaAcao"><h3>Área Temática Integradora</h3></label>
+                      <div class="checkbox" ng-repeat="a in area">
+                        <label >
+                          <input type="checkbox" value="{{a.id}}"> {{a.nome}} </input>
+                        </label> 
+                      </div>
+                    </div>
+                    
+                    <!-- ONU -->
+                    <div class="form-group" ng-controller="AreaOnu">
+                      <label for="titulodaAcao"><h3>Objetivos de Desenvolvimento Sustentável da Onu</h3></label>
+                      <div class="checkbox" ng-repeat="a in onu">
+                        <label >
+                          <input type="checkbox" value="{{a.id}}"> {{a.nome}} </input>
+                        </label> 
+                      </div>
+                    </div>
+                    
+                    <!-- BH 2030 -->
+                    <div class="form-group" ng-controller="AreaBh">
+                      <label for="titulodaAcao"><h3>Desafios do Planejamento estratégico de bh 2030</h3></label>
+                      <div class="checkbox" ng-repeat="a in bh">
+                        <label >
+                          <input type="checkbox" value="{{a.id}}"> {{a.nome}} </input>
+                        </label> 
+                      </div>
+                    </div>
+                    
+                     <!-- DESCRIÇÃO -->
+                    <div class="form-group">
+                      <label><h3>Descrição</h3></label>
+                      <textarea class="form-control" rows="3" placeholder="Breve resumo da atividade"></textarea>
+                    </div>
+                    
+                    <!-- OBJETIVO -->
+                    <div class="form-group">
+                      <label><h3>Objetivo</h3></label>
+                      <textarea class="form-control" rows="5" placeholder="Descrever os objetivos da atividade: 
+                        Pontuar ganhos dos alunos/Newton/sociedade com essa atividade (focar sempre no tripé: ensino-pesquisa-extensão)
+                        "></textarea>
+                    </div>
+                    
+                    <!-- PALAVRA CHAVE -->
+                    <div class="form-group">
+                      <label><h3>Palavras-Chave</h3></label>
+                      <input type="text" class="form-control" placeholder="eleger de 3 a 5 palavras-chave que se relacionam com a atividade
+                      "/>
+                    </div>
+                    
+                     <!-- ATIVIDADES -->
+                    <div class="form-group">
+                      <label><h3>Atividades</h3></label>
+                      <textarea class="form-control" rows="3" placeholder="Listar quais foram as atividades desenvolvidas ao longo da ação
+                      "></textarea>
+                    </div>
+                    
+                    <!-- DATA INICIO -->
+                  <div class="form-group">
+                    <label><h3>Data de Início</h3></label>
+                    <div class="input-group col-md-6">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  
+                    <!-- DATA TERMINO -->
+                  <div class="form-group">
+                    <label><h3>Data de Término</h3></label>
+                    <div class="input-group col-md-6">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  
+                    <!-- DATA DE REGISTRO -->
+                  <div class="form-group">
+                    <label><h3>Data de Registro</h3></label>
+                    <div class="input-group col-md-6">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  
+                     <!-- HORÁRIO -->
+                  <div class="form-group">
+                    <label><h3>Horário</h3></label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+                  <!-- LOCAL -->
+                    <div class="form-group">
+                      <label><h3>Local</h3></label>
+                      <input type="text" class="form-control" placeholder="Identificar onde foi realizada a ação"/>
+                    </div>
+                
+                <!-- PUBLICO -->
+                    <div class="form-group">
+                      <label><h3>Público Alvo</h3></label>
+                      <input type="text" class="form-control" placeholder="Informar qual o público principal alcançado pela atividade"/>
+                    </div>
+                    
+                    <!-- CURSOS ENVOLVIDOS -->
+                    <div class="form-group">
+                      <label><h3>Cursos Envolvidos</h3></label>
+                      <input type="text" class="form-control" placeholder="Citar todos os cursos de graduação Newton envolvidos"/>
+                    </div>
+                    
+                    <div class="box-footer">
+                      <button type="submit" class="btn-lg btn-success">Enviar</button>
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  
+                  
+                  <div class="tab-pane" id="tab_2">
+                    Desativada
+                  </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+                
+                
+              </div><!-- nav-tabs-custom -->
+              </form>
+          <!-- END CUSTOM TABS -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versão</b> 1.0
+        </div>
+        <strong>Copyright &copy;2017 <a href="https://newtonpaiva.br" target="_blank">Newton Paiva</a>.</strong> Todos os direitos reservados.
+      </footer>
+    </div><!-- ./wrapper -->
+
+    <!-- jQuery 2.1.3 -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='../../plugins/fastclick/fastclick.min.js'></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+  </body>
+</html>
