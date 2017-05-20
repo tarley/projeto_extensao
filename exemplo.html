@@ -189,7 +189,7 @@
                 alert("Erro: " + response.statusText);
             });
             
-            $http.get('api/ConceitoExtensao/buscarAtivos.php?idTipoConceito=1').then(function(response){
+            $http.get('api/ConceitoExtensao/buscarAtivos.php?tipo_conceito_id=1').then(function(response){
                if(response.data.sucesso){
                    $scope.areaTematicaIntegradora = response.data.conteudo;
                } else {
@@ -199,7 +199,7 @@
                 alert("Erro: " + response.statusText);
             });
             
-            $http.get('api/ConceitoExtensao/buscarAtivos.php?idTipoConceito=2').then(function(response){
+            $http.get('api/ConceitoExtensao/buscarAtivos.php?tipo_conceito_id=2').then(function(response){
                if(response.data.sucesso){
                    $scope.objetivosONU = response.data.conteudo;
                } else {
@@ -209,7 +209,7 @@
                 alert("Erro: " + response.statusText);
             });
             
-            $http.get('api/ConceitoExtensao/buscarAtivos.php?idTipoConceito=3').then(function(response){
+            $http.get('api/ConceitoExtensao/buscarAtivos.php?tipo_conceito_id=3').then(function(response){
                if(response.data.sucesso){
                    $scope.desafiosBH2030 = response.data.conteudo;
                } else {

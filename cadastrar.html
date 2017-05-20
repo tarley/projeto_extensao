@@ -226,7 +226,6 @@
         <!-- Main content -->
         <section class="content">
             <div class="box box-solid">
-              <form>
               <!-- Custom Tabs -->
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
@@ -238,7 +237,7 @@
                 </ul>
                 
                 
-                
+                <form name="acaoForm" ng-submit="salvar()" ng-controller="myCtrl">
                 <div class="tab-content">
                   <div class="tab-pane active box-body" id="tab_1">
                       <h3>Tipo de Evento</h3>
@@ -307,8 +306,8 @@
                     <!-- OBJETIVO -->
                     <div class="form-group">
                       <label><h3>Objetivo</h3></label>
-                      <textarea class="form-control" rows="5" placeholder="Descrever os objetivos da atividade: 
-                        Pontuar ganhos dos alunos/Newton/sociedade com essa atividade (focar sempre no tripé: ensino-pesquisa-extensão)
+                      <textarea class="form-control" rows="5" placeholder="Descrever os objetivos da atividade:
+                      Pontuar ganhos dos alunos/Newton/sociedade com essa atividade (focar sempre no tripé: ensino-pesquisa-extensão)
                         "></textarea>
                     </div>
                     
@@ -333,7 +332,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+                      <input type="datetime-local" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
                   
@@ -344,31 +343,10 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+                      <input type="datetime-local" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-                  
-                    <!-- DATA DE REGISTRO -->
-                  <div class="form-group">
-                    <label><h3>Data de Registro</h3></label>
-                    <div class="input-group col-md-6">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-                  
-                     <!-- HORÁRIO -->
-                  <div class="form-group">
-                    <label><h3>Horário</h3></label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-clock-o"></i>
-                      </div>
-                      <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
+
                   <!-- LOCAL -->
                     <div class="form-group">
                       <label><h3>Local</h3></label>
@@ -382,11 +360,15 @@
                     </div>
                     
                     <!-- CURSOS ENVOLVIDOS -->
-                    <div class="form-group">
-                      <label><h3>Cursos Envolvidos</h3></label>
-                      <input type="text" class="form-control" placeholder="Citar todos os cursos de graduação Newton envolvidos"/>
+                    <div class="form-group" ng-controller="ListaCursos">
+                      <label for="titulodaAcao"><h3>Cursos Envolvidos</h3></label>
+                      <div class="checkbox" ng-repeat="c2 in cursos">
+                        <label >
+                          <input type="checkbox" value="{{c2.id}}"> {{c2.nome}} </input>
+                        </label> 
+                      </div>
                     </div>
-                    
+
                     <div class="box-footer">
                       <button type="submit" class="btn-lg btn-success">Enviar</button>
                     </div>
@@ -397,7 +379,7 @@
                     Desativada
                   </div><!-- /.tab-pane -->
                 </div><!-- /.tab-content -->
-                
+                </form>
                 
               </div><!-- nav-tabs-custom -->
               </form>
@@ -420,5 +402,32 @@
     <script src='../../plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+        angular.module('cadastraProjeto').controller('myCtrl', function($scope, $http) {
+          $scope.acao = {};
+          
+          $scope.acao.tipoAcao = 1;
+            $scope.acao.titulo = "Projeto u8de njn teste";
+            $scope.acao.descricao = "Descrição de um projeto de teste";
+            $scope.acao.objetivo = "Objetivos gjnierais do projeto de teste";
+            $scope.acao.publicoAlvo = "Professores, alunos e funcionários";
+            $scope.acao.local = "Campos Silva Lobo";
+            $scope.acao.dataInicio = new Date(2017, 11, 01);
+            $scope.acao.palavrasChave = "Projeto, Newton Paiva, Sou Newton, SI";
+            $scope.acao.atividades = "Arquitetura, Engenharia, TI";
+            $scope.acao.cursoResponsavel = 1;
+          
+          $scope.salvar = function() {
+                $http({
+                    method: 'POST',
+                    url: 'api/Acao/salvar.php',
+                    data: $scope.acao
+                }).success(function(data) {
+                    alert(data.mensagem);
+                });
+            }
+        });
+    </script>
   </body>
 </html>

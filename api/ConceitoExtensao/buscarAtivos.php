@@ -2,16 +2,16 @@
     try {
         require_once '../Utils/Init.php';
         
-        if(empty($_GET['idTipoConceito'])) {
+        if(empty($_GET['tipo_conceito_id'])) {
             respostaJsonErro('Parametro GET idTipoConceito não informado.');
         }
         
-        $idTipoConceito = $_GET['idTipoConceito'];
+        $idTipoConceito = $_GET['tipo_conceito_id'];
         
         $tipoConceito = R::find('tipo_conceito', 'id= ?', [$idTipoConceito]);
         
         $dados = R::find('conceito', 
-            'ativo = ? AND tipo_conceito_id = ?', [1, $_GET['idTipoConceito']]);
+            'ativo = ? AND tipo_conceito_id = ?', [1, $_GET['tipo_conceito_id']]);
         
         foreach($dados as $areaTematica) {
             unset($areaTematica['tipo_conceito_id']);
