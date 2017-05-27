@@ -8,7 +8,7 @@
         
         $nome = $_GET['nome'];
         
-        $dados = R::find('curso', 'ativo = ? AND nome LIKE ?', [1, "%$nome%"]);
+        $dados = R::find('curso', 'ativo = ? AND nome LIKE ?', [1, "%$nome%"], ' ORDER BY nome ASC ');
         
         respostaJson($dados);
     } catch(Exception $e) {

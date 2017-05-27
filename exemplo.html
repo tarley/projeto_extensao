@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp">
+    
+    <div ng-controller="myCtrl">
     <h3>Cadastro de ações</h3>
     <form name="acaoForm" ng-submit="salvar()" class="form-horizontal">
         <div class="form-group">
@@ -113,6 +115,8 @@
             </div>
         </div>
     </form>
+    </div>
+    
     <h3>Exemplos de requisições</h3>
     <ul class="list-group">
         <li class="list-group-item"><a href="api/TipoConceito/buscarTodos.php">Buscar todos os tipos de conceitos</a></li>

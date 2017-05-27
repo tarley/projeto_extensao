@@ -2,19 +2,23 @@
     try {
         require_once '../Utils/Init.php';
         
-        if(empty($_POST['username']))
-            respostaJsonErro('Usuário não informado');
-            
-        if(empty($_POST['password']))
-            respostaJsonErro('Senha não informada.');    
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        logInfo($_POST);
         
+        if(empty($_POST['username']) || (empty($_POST['password']))){ 
+            respostaJsonErro('Usuário ou senha  não informados');
+        }
+      
+        $usuario = R::findOne('usuario', 'email = :email AND senha = :password', 
+                 [':email' => $_POST['username'], ':password' => SHA1($_POST['password'])]);
         
-        //$dados = R::find('usuario', '', [$_POST['username']]);
+        if(empty($usuario)){
+            respostaJsonErro('Usuário ou senha inválido.'); 
+        }
         
-        if(1==1)
-            respostaJsonErro('Usuário ou senha inválido.');  
-        
-        respostaJsonSucesso('Autenticação realizada com sucesso!');
+        $_SESSION['usuario'] = $usuario;
+        respostaJson($usuario);
+
     } catch(Exception $e) {
         respostaJsonErro($e->getMessage());
     }
