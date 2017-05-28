@@ -6,12 +6,17 @@
         header('Content-Type: application/json; charset=UTF-8');
     }
 
-    function respostaJson($dados) {
+    function respostaJson($dados, $export=true) {
         setHeader();
         
-        $retorno = ['sucesso' => true, 'conteudo' => R::exportAll($dados)];
-        echo json_encode($retorno);
+        if($export)
+            $conteudo = R::exportAll($dados);
+        else    
+            $conteudo = $dados;
         
+        $retorno = ['sucesso' => true, 'conteudo' => $conteudo];
+        
+        echo json_encode($retorno);
         exit;
     }
 

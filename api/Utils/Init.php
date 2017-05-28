@@ -3,5 +3,13 @@
     include 'JsonUtils.php';
     include 'LogUtils.php';
     
-    R::setup('mysql:host=' . HOST . ';dbname=' . DBNAME, USERNAME, PASSWORD);
+    session_start();
+    
+    if(!$ignorarSeguranca && empty($_SESSION['usuario'])) {
+        respostaJsonErro('Usuário não autenticado.');
+    }
+    
+    if(!$ignorarConexao) {
+        R::setup('mysql:host=' . HOST . ';dbname=' . DBNAME, USERNAME, PASSWORD);
+    }
 ?>

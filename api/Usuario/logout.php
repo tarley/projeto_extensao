@@ -5,10 +5,9 @@
         
         require_once '../Utils/Init.php';
         
-        if(empty($_SESSION['usuario']))
-            respostaJsonErro('Usuário não autenticado.');  
-        else
-            respostaJson($_SESSION['usuario'], false);
+        session_unset();
+        
+        respostaJsonSucesso('Logout concluido com sucesso!');
     } catch(Exception $e) {
         respostaJsonErro($e->getMessage());
     }
