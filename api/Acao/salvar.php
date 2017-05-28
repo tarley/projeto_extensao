@@ -51,42 +51,44 @@
         $acao->curso = R::findone('curso', 'id = ?', [$_POST['cursoResponsavel']]);
         $acao->professor = R::findone('usuario', 'id = ?', [3]); // Cadastrado pelo professor Tarley
         
-        foreach(explode(",", $_POST['atividades']) as $value) {
-            $atividade =  R::dispense('atividade');
-            $atividade->nome = $value;
-            $acao->ownAtividadeList[] = $atividade;
-        }
+        if(!empty($_POST['atividades']))
+            foreach(explode(",", $_POST['atividades']) as $value) {
+                $atividade =  R::dispense('atividade');
+                $atividade->nome = $value;
+                $acao->ownAtividadeList[] = $atividade;
+            }
         
-        
-        foreach(explode(",", $_POST['palavrasChave']) as $value) {
-            $palavra =  R::dispense('palavrachave');
-            $palavra->palavra = $value;
-            $acao->ownPalavrachaveList[] = $palavra;
-        }
+        if(!empty($_POST['palavrasChave']))
+            foreach(explode(",", $_POST['palavrasChave']) as $value) {
+                $palavra =  R::dispense('palavrachave');
+                $palavra->palavra = $value;
+                $acao->ownPalavrachaveList[] = $palavra;
+            }
         
         
         R::begin();
         $id = R::store($acao);
         
-        foreach($_POST['areaTematicaIntegradora'] as $key => $value) {
-            $conceito =  R::findone('conceito', 'id = ?', [$key]);
-            $conceito->link('conceito_acao')->acao = $acao;
-            R::store($conceito);
-        }
+        if(!empty($_POST['areaTematicaIntegradora']))
+            foreach($_POST['areaTematicaIntegradora'] as $key => $value) {
+                $conceito =  R::findone('conceito', 'id = ?', [$key]);
+                $conceito->link('conceito_acao')->acao = $acao;
+                R::store($conceito);
+            }
         
-        foreach($_POST['objetivosONU'] as $key => $value) {
-            $conceito =  R::findone('conceito', 'id = ?', [$key]);
-            $conceito->link('conceito_acao')->acao = $acao;
-            R::store($conceito);
-        }
+        if(!empty($_POST['objetivosONU']))
+            foreach($_POST['objetivosONU'] as $key => $value) {
+                $conceito =  R::findone('conceito', 'id = ?', [$key]);
+                $conceito->link('conceito_acao')->acao = $acao;
+                R::store($conceito);
+            }
         
-        foreach($_POST['desafiosBH2030'] as $key => $value) {
-            $conceito =  R::findone('conceito', 'id = ?', [$key]);
-            $conceito->link('conceito_acao')->acao = $acao;
-            R::store($conceito);
-        }
-        
-       
+        if(!empty($_POST['desafiosBH2030']))
+            foreach($_POST['desafiosBH2030'] as $key => $value) {
+                $conceito =  R::findone('conceito', 'id = ?', [$key]);
+                $conceito->link('conceito_acao')->acao = $acao;
+                R::store($conceito);
+            }
         
         R::commit();
         respostaJsonSucesso('Ação cadastrada com sucesso!');
